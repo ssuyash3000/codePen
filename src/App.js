@@ -1,25 +1,95 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import { Navigate, Route,Routes, useNavigate } from "react-router-dom";
+import { Home, NewProject } from "./comtainer";
+import { auth, db } from "./config/firebase.config";
+import {  QuerySnapshot, collection, doc, onSnapshot, orderBy, query, setDoc } from "firebase/firestore";
+import { Spinner } from "./components";
+import { useDispatch } from "react-redux";
+import {SET_USER} from './context/actions/userActions'
+import {SET_PROJECTS} from './context/actions/projectActions'
 
-function App() {
+const App = () => {
+
+  const dispatch = useDispatch()
+  
+  const navigate = useNavigate()
+
+  //while loading is happening by the mean time we need to push the data to the redux store
+
+  // create state to monitor loading
+  const [isLoading, setIsLoading] = useState(true)
+  // to get that authentication information
+
+  // This useEffect hook listens for changes in authentication state using Firebase's onAuthStateChanged method. If a user is authenticated, their information is logged. Otherwise, they are redirected to the authentication page.
+
+  useEffect(()=>{
+    // check authentication state
+    const unsubscribe = auth.onAuthStateChanged(userCred => {
+      if(userCred){
+        // userdata
+        // console.log(userCred?.providerData[0]);
+
+        // store the data in firestore
+        setDoc(doc(db,'users',userCred.uid), userCred?.providerData[0]).then(()=>{
+          // dispatch the action to the redux store and after that specif ui changes can be done
+          dispatch(SET_USER(userCred?.providerData))
+          navigate('/home/projects',{replace:true})
+        })
+      }
+      else{
+        // replace:true -> replace the entire route
+        navigate('/home/auth',{replace:true})
+      }
+
+      setInterval(()=>{
+        setIsLoading(false)
+      },2000)
+    })
+
+    // since the unsubscribe is constantly being running, to avoid we need to clean up the listener event
+    return () => unsubscribe
+  },[])
+
+  // push the projects data
+  useEffect(()=>{
+    const projectQuery = query(
+      collection(db,'Projects'),
+      orderBy('id','desc')
+    )
+
+    const unsubscribe = onSnapshot(projectQuery,(QuerySnapshot => {
+      const projectsList = QuerySnapshot.docs.map(doc => doc.data())
+      dispatch(SET_PROJECTS(projectsList))
+    }))
+
+    return unsubscribe
+  },[])
+
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <>{isLoading
+      ? 
+      <div
+      className=" w-screen h-screen flex items-center justify-center overflow-hidden"
+      >
+        <Spinner/>
+      </div>
+      :
+      <div className=" w-screen h-screen flex items-start justify-start overflow-hidden">
+      <Routes>
+        {/* Initial route */}
+        <Route path='/home/*' element={<Home/>}/>
+
+        {/* load newproject vomponent for the following route */}
+        <Route path="/newproject" element={<NewProject/>}/>
+
+        {/* navigate to home */}
+        <Route path="*" element={<Navigate to={'/home'}/>} />
+      </Routes>
     </div>
+    }</>
   );
-}
+};
 
 export default App;
