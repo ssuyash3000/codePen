@@ -68,3 +68,30 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+Realtime Code Editor
+Overview
+This project is a realtime code editor inspired by popular platforms like CodePen. It provides users with the ability to write and execute HTML, CSS, and JavaScript code in a collaborative environment. The application offers features such as project management, user authentication, and state management using technologies like React.js, Firebase, and Redux.
+
+Features
+Realtime Collaboration: Multiple users can edit the same project simultaneously, enabling seamless collaboration.
+Project Management: Users can create, save, and delete their projects, allowing for easy organization and access.
+User Authentication: Firebase authentication ensures secure login and access control for users.
+State Management: Redux is used for efficient state management, enabling the application to handle complex data structures with ease.
+Responsive Design: The application is built with responsive design principles, ensuring optimal viewing experience across devices.
+Technologies Used
+Frontend:
+
+React.js
+Redux
+React Router
+Framer Motion
+Tailwind CSS
+CodeMirror
+Backend:
+
+Firebase (Authentication and Realtime Database)
+
+
+![image](https://github.com/RanitaGhosh04/codePen/assets/82662107/5658a60f-9561-4cdc-a3eb-b25b4dda9bbd)
