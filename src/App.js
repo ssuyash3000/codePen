@@ -50,18 +50,24 @@ const App = () => {
     return () => unsubscribe
   },[])
 
-  // push the projects data
+  // push the projects data in firestore
   useEffect(()=>{
     const projectQuery = query(
+      // supply database and collection name
       collection(db,'Projects'),
+      // newly created project will be in the top
       orderBy('id','desc')
     )
 
+    // querysnapshot is the event listener, whenever you are making any changes in firestore collection it will be reflected
     const unsubscribe = onSnapshot(projectQuery,(QuerySnapshot => {
+      // get data from Querysnapshots and store into projectList
       const projectsList = QuerySnapshot.docs.map(doc => doc.data())
+      // dispatch the process
       dispatch(SET_PROJECTS(projectsList))
     }))
 
+    // Unsubscribe from the query when component unmounts
     return unsubscribe
   },[])
 
