@@ -20,7 +20,7 @@ const UserProfileDetails = () => {
     <div
     className=' flex items-center justify-center gap-4'
     >
-      <div className=' w-14 h-14 flex items-center justify-center rounded-xl overflow-hidden cursor-pointer bg-emerald-500'>
+      {/* <div className=' w-14 h-14 flex items-center justify-center rounded-xl overflow-hidden cursor-pointer bg-emerald-500'>
         {
           // if user has pic
           user?.photoURL ? (<>
@@ -31,6 +31,21 @@ const UserProfileDetails = () => {
             {userEmailFirstChar}
           </p>
        ) }
+      </div> */}
+
+<div className='w-14 h-14 flex items-center justify-center rounded-xl overflow-hidden cursor-pointer bg-emerald-500'>
+        {user[0]?.photoURL ? (
+          <motion.img
+            whileHover={{ scale: 1.2 }}
+            src={user[0].photoURL}
+            alt={user[0].displayName || 'User Photo'}
+            className='w-full h-full object-cover'
+          />
+        ) : (
+          <p className='text-xl text-white font-semibold capitalize'>
+            {user[0]?.displayName ? user[0].displayName.charAt(0) : userEmailFirstChar || 'U'}
+          </p>
+        )}
       </div>
       
 

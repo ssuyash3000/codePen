@@ -75,12 +75,13 @@ const Home = () => {
       {/* top section*/}
 
       <div className=' w-full flex items-center justify-between gap-3'>
-        {/* search */}
-
+   
         <div className=' bg-secondary w-full px-4 py-3 rounded-md flex items-center justify-center gap-3'>
-        <FaSearchengin className=' text-2xl text-primaryText'/>
-        <input type="text" className=' flex-1 px-4 py-1 text-xl bg-transparent outline-none border-none text-primaryText placeholder:text-gray-600'
-        placeholder='Search here...' />
+        
+        <div className=' flex-1 px-4 py-1 text-xl bg-transparent outline-none border-none text-primaryText placeholder:text-gray-600'
+        >
+          <p>MAKE THE BEST USE OF CODEPEN</p>
+        </div>
 
         </div>
         
@@ -96,7 +97,7 @@ const Home = () => {
             <Link
             className=' bg-emerald-500 px-6 py-2 rounded-md text-white text-lg cursor-pointer hover:bg-emerald-700'
             to={'/home/auth'}
-            >Sign Up
+            >SignUp
             </Link>
           </motion.div>
         )}

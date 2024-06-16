@@ -38,7 +38,7 @@ const App = () => {
       }
       else{
         // replace:true -> replace the entire route
-        navigate('/home/auth',{replace:true})
+        navigate('/home/projects',{replace:true})
       }
 
       setInterval(()=>{
