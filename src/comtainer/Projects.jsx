@@ -39,10 +39,6 @@ const ProjectCard = ({project,index}) => {
             {/* image name and icons etc */}
             <div className=' flex items-center justify-start gap-3 w-full'>
 
-              {/* image */}
-              
-
-              {/* name */}
             </div>
     </motion.div>
   )

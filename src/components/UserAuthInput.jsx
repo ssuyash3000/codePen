@@ -15,7 +15,7 @@ const UserAuthInput = ({
   const [value, setValue] = useState("");
 
 //   for whether or not password display
-  const [showPass, setShowPass] = useState(false)
+  const [showPass, setShowPass] = useState(true)
 
   const [isEmailValid, setIsEmailValid] = useState(false)
 
