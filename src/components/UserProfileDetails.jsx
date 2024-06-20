@@ -38,7 +38,7 @@ const UserProfileDetails = () => {
           <motion.img
             whileHover={{ scale: 1.2 }}
             src={user[0].photoURL}
-            alt={user[0].displayName || 'User Photo'}
+            alt={user[0].displayName[0]|| 'User Photo'}
             className='w-full h-full object-cover'
           />
         ) : (

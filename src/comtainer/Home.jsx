@@ -6,8 +6,9 @@ import { Link, Route, Routes} from 'react-router-dom'
 import {MdHome} from 'react-icons/md'
 import {FaSearchengin} from 'react-icons/fa6'
 import {Projects,SignUp} from '../comtainer'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { UserProfileDetails } from '../components'
+import { SET_SEARCH_TERM } from '../context/actions/searchActions'
 
 const Home = () => {
  
@@ -21,6 +22,15 @@ const Home = () => {
 
   // find state.user go inside if found
   const user = useSelector((state) => state.user?.user)
+
+  const searchTerm = useSelector((state)=>
+    //   If state.searchTerm?.searchTerm exists and is truthy (not null or undefined), it is returned (state.searchTerm.searchTerm).
+// If state.searchTerm or state.searchTerm.searchTerm is null or undefined, an empty string '' is returned
+    state.searchTerm?.searchTerm?state.searchTerm?.searchTerm:''
+  )
+
+
+  const dispatch = useDispatch()
 
   
   console.log(user);
@@ -75,20 +85,19 @@ const Home = () => {
       {/* top section*/}
 
       <div className=' w-full flex items-center justify-between gap-3'>
-   
+
+        {/* search */}
         <div className=' bg-secondary w-full px-4 py-3 rounded-md flex items-center justify-center gap-3'>
-        
-        <div className=' flex-1 px-4 py-1 text-xl bg-transparent outline-none border-none text-primaryText placeholder:text-gray-600'
-        >
-          <p>MAKE THE BEST USE OF CODEPEN</p>
+          <FaSearchengin className=' text-2xl text-primaryText'/>
+          <input type="text"
+          value={searchTerm}
+          onChange={(e)=> dispatch(SET_SEARCH_TERM(e.target.value))}
+          className=' flex px-4 py-1 text-xl bg-transparent outline-none border-none text-primaryText placeholder:text-gray-600'
+          placeholder='Search here...'
+           />
         </div>
-
-        </div>
         
-        {/* profile section */}
-
-        {/* if user is not there */}
-       
+       {/* profile section */}
         {!user && (
           <motion.div
           whileTap={{scale:0.9}}
