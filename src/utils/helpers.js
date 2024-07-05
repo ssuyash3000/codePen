@@ -1,8 +1,11 @@
 // for sign in with google
 
-import { GithubAuthProvider, GoogleAuthProvider, signInWithRedirect,signInWithPopup } from "firebase/auth";
+import { GithubAuthProvider, GoogleAuthProvider, signInWithRedirect,signInWithPopup,signOut } from "firebase/auth";
 import { auth,provider, provider2 } from "../config/firebase.config";
 import { v4 as uuidv4 } from 'uuid';
+import { useDispatch } from "react-redux";
+import { SET_USER_NULL } from "../context/actions/userActions";
+import { useNavigate } from "react-router-dom";
 
 // created new instance of provider info
 const googleProvider = new GoogleAuthProvider();
@@ -94,3 +97,18 @@ export const signOutAction = async() => {
     window.location.reload()
   })
 }
+
+
+// export const signOutAction = () => {
+//   signOut(auth).then(() => {
+//     console.log("User signed out successfully.");
+//     // Redirect to login page or perform other actions
+//     const navigate = useNavigate()
+//     const dispatch = useDispatch()
+//     // dispatch(SET_USER_NULL)
+//     navigate('/projects')
+
+//   }).catch((error) => {
+//     console.error("Error signing out:", error);
+//   });
+// };
