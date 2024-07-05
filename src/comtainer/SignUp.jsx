@@ -5,10 +5,11 @@ import { FaEnvelope, FaGit, FaGithub } from 'react-icons/fa'
 import { MdPassword } from 'react-icons/md'
 import { AnimatePresence, motion } from 'framer-motion'
 import { FcGoogle } from 'react-icons/fc'
-import { signINWithGithub, signINWithGoogle } from '../utils/helpers'
+import { signINWithGithub, signINWithGoogle, signInWithGoogle } from '../utils/helpers'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../config/firebase.config'
 import { fadeInOut } from '../animations'
+import { GoogleSignIn } from '../utils/helpers'
 
 const SignUp = () => {
 
@@ -176,7 +177,7 @@ const SignUp = () => {
          <motion.div 
 
         //  coming from helpers.js utils
-         onClick={signINWithGoogle} 
+         onClick={signInWithGoogle} 
          whileTap={{scale:0.9}} className=' flex items-center justify-center gap-3 bg-[rgba(256,256,256,0.2)] backdrop-blur-md w-full
          py-3 rounded-xl hover:bg-[rgba(256,256,256,0.4)] cursor-pointer'>
           <FcGoogle className=' text-3xl'/>

@@ -1,7 +1,7 @@
 // for sign in with google
 
-import { GithubAuthProvider, GoogleAuthProvider, signInWithRedirect } from "firebase/auth";
-import { auth } from "../config/firebase.config";
+import { GithubAuthProvider, GoogleAuthProvider, signInWithRedirect,signInWithPopup } from "firebase/auth";
+import { auth,provider, provider2 } from "../config/firebase.config";
 import { v4 as uuidv4 } from 'uuid';
 
 // created new instance of provider info
@@ -16,20 +16,70 @@ const githubProvider = new GithubAuthProvider()
 
 // window.location.reload() is a JavaScript method that reloads the current page. In this context, it likely serves to refresh the application after the user signs in with Google. This can be useful for updating the UI or applying changes to the application state based on the user's authentication status.
 
-export const signINWithGoogle = async () => {
-  // this auth object will get all the information about the authenticated providers
-  await signInWithRedirect(auth, googleProvider).then((userCred) => {
-    window.location.reload();
-  });
-};
+// export const signINWithGoogle = async () => {
+//   // this auth object will get all the information about the authenticated providers
+//   await signInWithRedirect(auth, googleProvider).then((userCred) => {
+//     window.location.reload();
+//   });
+// };
 
 
-export const signINWithGithub = async () => {
-    await signInWithRedirect(auth, githubProvider).then((userCred) => {
-      window.location.reload();
-    });
+// google signIn --->
+
+// export const GoogleSignIn = () => {
+ export const signInWithGoogle = () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = provider.credentialFromResult(result);
+        const token = credential.accessToken;
+        // console.log(token);
+
+        // The signed-in user info.
+        const user = result?.user;
+        console.log('User:', user);
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // const email = error.customData?.email;
+        // const credential = provider?.credentialFromError(error);
+        console.error('Error:', errorCode, errorMessage);
+      });
   };
+// }
+
+
+// export const signINWithGithub = async () => {
+//     await signInWithRedirect(auth, githubProvider).then((userCred) => {
+//       window.location.reload();
+//     });
+//   };
   
+
+// github -->
+
+export const signINWithGithub = () => {
+  signInWithPopup(auth, githubProvider)
+    .then((result) => {
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      const credential = githubProvider.credentialFromResult(result);
+      const token = credential.accessToken;
+
+      // The signed-in user info.
+      const user = result?.user;
+      console.log('User:', user);
+    })
+    .catch((error) => {
+      // Handle Errors here.
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // const email = error.customData?.email;
+      // const credential = provider?.credentialFromError(error);
+      console.error('Error:', errorCode, errorMessage);
+    });
+};
 
 export const Menus = [
   {id: uuidv4(), name: 'Projects', uri: '/home/projects'},

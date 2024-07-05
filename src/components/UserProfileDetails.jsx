@@ -15,7 +15,7 @@ const UserProfileDetails = () => {
   const user = useSelector((state)=>state.user?.user)
 
   const userEmailFirstChar = user[0]?.email ? user[0].email.charAt(0) : '';
-  console.log(user[0].email);
+  console.log(user[0]?.email);
   return (
     <div
     className=' flex items-center justify-center gap-4'
@@ -37,13 +37,13 @@ const UserProfileDetails = () => {
         {user[0]?.photoURL ? (
           <motion.img
             whileHover={{ scale: 1.2 }}
-            src={user[0].photoURL}
-            alt={user[0].displayName[0]|| 'User Photo'}
+            src={user[0]?.photoURL}
+            alt='User Photo'
             className='w-full h-full object-cover'
           />
         ) : (
           <p className='text-xl text-white font-semibold capitalize'>
-            {user[0]?.displayName ? user[0].displayName.charAt(0) : userEmailFirstChar || 'U'}
+            {user[0]?.displayName ? user[0]?.displayName.charAt(0) : userEmailFirstChar || 'U'}
           </p>
         )}
       </div>
